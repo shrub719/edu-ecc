@@ -6,8 +6,8 @@ A simplified visual demonstration of several mathematical concepts in cryptograp
 ## Structure
 
 This project is composed of two parts:
-- A program written in Python used to visually demonstrate several mathematical concepts in cryptography. <!-- 2x -->
-- An essay/paper <!-- FIX: essay or paper? --> on elliptic curve cryptography and the issues posed to cryptographic standards by technological advancement.
+- [A program](#program-edu-ecc) written in Python used to visually demonstrate several mathematical concepts in cryptography. <!-- 2x -->
+- [An essay/paper](#paper) <!-- FIX: essay or paper? --> on elliptic curve cryptography and the issues posed to cryptographic standards by technological advancement.
 
 
 ## Program (Edu-ECC)
