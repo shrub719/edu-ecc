@@ -53,4 +53,9 @@ The paper should cover (in chronological <!-- chronological?? --> order):
     - Shor's algorithm
     - Feasibilty of large-scale quantum computers, error correction
 
+
+<br />
+
+---
+
 $$  y^2 = x^3 -10x + 7  $$
