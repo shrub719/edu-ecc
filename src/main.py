@@ -1,0 +1,1 @@
+from tinyec.ec import SubGroup, Curve
