@@ -22,7 +22,7 @@ TODO <!-- instructions -->
 ## Paper
 
 The paper accompanying this program, [Paper Name :)](./utils/paperName.md), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and lattice-based cryptography.  
-It is written in MarkDown with TeX support ([VSCode KaTeX](https://github.com/microsoft/vscode-markdown-it-katex)). <!-- REMEMBER to export to PDF or something w pandoc -->
+It is written in MarkDown with TeX support ([VS Code's KaTeX plugin](https://github.com/microsoft/vscode-markdown-it-katex)). <!-- REMEMBER to export to PDF or something w pandoc -->
 
 
 $$  y^2 = x^3 -10x + 7  $$
