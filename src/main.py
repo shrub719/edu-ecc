@@ -4,7 +4,7 @@ from manim import *  # TODO: install manim, doesn't work on mb
 class EC(Scene):
     def construct(self):
         graph = ImplicitFunction(
-            lambda x, y: x ** 3 + 3 - y**2,
+            lambda x, y: x ** 3 + 7 - y ** 2,
             color=BLUE
         )
         self.add(NumberPlane(), graph)
