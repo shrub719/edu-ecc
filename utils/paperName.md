@@ -2,7 +2,7 @@
 
 I'm the paper.
 
-$0$ and $\mathcal{O}$ and $\infin$
+$0$ and $\mathcal{O}$ and $\infty$
 
 
 $$\begin{align}
