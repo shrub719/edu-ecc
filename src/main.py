@@ -29,7 +29,8 @@ def mul_demo():
 
 def inf_demo():
     p1 = curve.point(5, 22)
-    print(p1 + curve.point(5, 7))
+    p2 = curve.point(5, 7)
+    print(f"{p1} + {p2} = {p1 + p2}")
 
 
 mul_demo()
