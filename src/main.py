@@ -1,4 +1,4 @@
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 from ec import *
     
 
@@ -24,9 +24,9 @@ def mul_demo():
         y.append(p.y)
         k += 1
 
-    pl.plot(x, y, "o")
-    pl.title(curve)
-    pl.show()
+    plt.plot(x, y, "o")
+    plt.title(curve)
+    plt.show()
 
 def inf_demo():
     p1 = curve.point(5, 22)
