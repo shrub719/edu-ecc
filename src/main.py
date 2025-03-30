@@ -73,8 +73,10 @@ class Point:
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
-        x3 = self.div((y2 - y1), (x2 - x1))**2 - x1 - x2
-        y3 = self.div((y2 - y1), (x2 - x1)) * (x1 - x3) - y1
+        l = self.div((y2 - y1), (x2 - x1))
+
+        x3 = l**2 - x1 - x2
+        y3 = l * (x1 - x3) - y1
 
         x3 = x3 % self.curve.p
         y3 = y3 % self.curve.p
@@ -100,8 +102,10 @@ class Point:
         x1, y1 = self.x, self.y
         a = self.curve.a
 
-        x3 = self.div((3*x1**2 + a), (2*y1))**2 - 2*x1
-        y3 = self.div((3*x1**2 + a), (2*y1)) * (x1 - x3) - y1
+        l = self.div((3*x1**2 + a), (2*y1))
+        
+        x3 = l**2 - 2*x1
+        y3 = l * (x1 - x3) - y1
 
         x3 = x3 % self.curve.p
         y3 = y3 % self.curve.p
@@ -115,23 +119,35 @@ class Point:
 curve = Curve(4, 20, 29)
 print(curve)
 
-p1 = curve.point(5, 22)
-p2 = curve.point(16, 27)
-print(p1, "+", p2, "=", p1 + p2)
-
 
 # TODO: add point at infinity
 
-x, y = [], []
 
-p = p1
-k = 1
-while k < 37:
-    p = k * p1
-    print(f"{k} * {p2} = {p}")
-    x.append(p.x)
-    y.append(p.y)
-    k += 1
+def add_demo():
+    p1 = curve.point(5, 22)
+    p2 = curve.point(16, 27)
+    print(p1, "+", p2, "=", p1 + p2)
 
-pl.plot(x, y, "o")
-pl.show()
+def mul_demo():
+    x, y = [], []
+
+    p1 = curve.point(5, 22)
+    p = p1
+    k = 1
+    while k < 37:
+        p = k * p1
+        print(f"{k} * {p1} = {p}")
+        x.append(p.x)
+        y.append(p.y)
+        k += 1
+
+    pl.plot(x, y, "o")
+    pl.show()
+
+def inf_demo():
+    p1 = curve.point(5, 22)
+    print(p1 + curve.point(5, 7))
+
+
+mul_demo()
+inf_demo()
