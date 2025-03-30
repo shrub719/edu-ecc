@@ -25,6 +25,7 @@ def mul_demo():
         k += 1
 
     pl.plot(x, y, "o")
+    pl.title(curve)
     pl.show()
 
 def inf_demo():

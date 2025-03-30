@@ -39,7 +39,7 @@ class Curve:
         a = coefficient(self.a)
         b = coefficient(self.b)
 
-        return f"y^2 = x^3 {a}x {b}"
+        return f"y^2 = x^3 {a}x {b} (mod {self.p})"
     
     def implicit(self):  # converts to manim implicit lambda function
         # graph = ImplicitFunction(
