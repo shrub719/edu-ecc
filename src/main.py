@@ -57,17 +57,32 @@ class Point:
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
-        x3 = (self.div((y2 - y1), (x2 - x1)))**2 - x1 - x2
+        x3 = self.div((y2 - y1), (x2 - x1))**2 - x1 - x2
         y3 = self.div((y2 - y1), (x2 - x1)) * (x1 - x3) - y1
+
         x3 = x3 % self.curve.p
         y3 = y3 % self.curve.p
+
         return self.curve.point(x3, y3)
     
     def __mul__(self, other):
-        return "AH"  # TODO
+        if other == 2:
+            return self.double()
 
     def __repr__(self):
         return f"({self.x}, {self.y})"
+    
+    def double(self):
+        x1, y1 = self.x, self.y
+        a = self.curve.a
+
+        x3 = self.div((3*x1**2 + a), (2*y1))**2 - 2*x1
+        y3 = self.div((3*x1**2 + a), (2*y1)) * (x1 - x3) - y1
+
+        x3 = x3 % self.curve.p
+        y3 = y3 % self.curve.p
+
+        return self.curve.point(x3, y3)
     
     def div(self, a, b):
         return divide(a, b, self.curve.p)
@@ -75,9 +90,13 @@ class Point:
 
 curve = Curve(4, 20, 29)
 print(curve)
+
 p1 = curve.point(5, 22)
 p2 = curve.point(16, 27)
 print(p1, "+", p2, "=", p1 + p2)
+
+p3 = curve.point(5, 22)
+print(f"2 * {p3} = {p3 * 2}")
 
 # x = []
 # y = []
