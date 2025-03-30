@@ -1,5 +1,5 @@
 import matplotlib.pyplot as pl
-from ecc import *
+from ec import *
     
 
 curve = Curve(4, 20, 29)
