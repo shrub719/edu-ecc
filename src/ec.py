@@ -1,13 +1,13 @@
 import math
 
 
-def coefficient(x):
+def coefficient(x: int):
     if x < 0: 
         return f"- {x}"
     else: 
         return f"+ {x}"
 
-def inverse(x, m):
+def inverse(x: int, m: int):
     g = math.gcd(x, m) 
     if (g != 1):
         raise ValueError(f"inverse of {x} does not exist mod {m}")
@@ -16,7 +16,7 @@ def inverse(x, m):
         return pow(x, m - 2, m)
     # TODO: use euclid algorithm
 
-def divide(a, b, m):
+def divide(a: int, b: int, m: int):
     a = a % m
     inv = inverse(b, m)
     return (inv * a) % m
@@ -30,7 +30,7 @@ def is_coordinate(x):
 
 
 class Curve:
-    def __init__(self, a, b, p):
+    def __init__(self, a: int, b: int, p: int):
         self.a = a
         self.b = b
         self.p = p
@@ -50,7 +50,7 @@ class Curve:
             return x**3 + self.a * x + self.b * x - y**2
         return func
     
-    def point(self, x, y):
+    def point(self, x: int, y: int):
         if x == None and y == None:
             return Point(self, x, y)
         
@@ -63,7 +63,7 @@ class Curve:
         
     
 class Point:
-    def __init__(self, curve, x, y):
+    def __init__(self, curve: Curve, x: int, y: int):
         self.curve = curve
         self.x = x
         self.y = y  # TODO: encode as even/odd?
@@ -136,7 +136,7 @@ class Point:
 
         return self.curve.point(x3, y3)
     
-    def div(self, a, b):
+    def div(self, a: int, b: int):
         try:
             return divide(a, b, self.curve.p)
         except ValueError:
