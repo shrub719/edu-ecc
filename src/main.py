@@ -25,6 +25,7 @@ def divide(a, b, m):
 def is_coordinate(x):
     if not isinstance(x, tuple): return False
     if len(x) != 2: return False
+    if x == (None, None): return True
     if not (type(x[0]) is int and type(x[1]) is int): return False
     return True
 
@@ -42,6 +43,9 @@ class Curve:
         return f"y^2 = x^3 {a}x {b}"
     
     def point(self, x, y):
+        if x == None and y == None:
+            return Point(self, x, y)
+        
         p = self.p
         y_side = y**2 % p
         x_side = (x**3 + self.a * x + self.b) % p
@@ -70,10 +74,16 @@ class Point:
             raise TypeError("points can only be added to other points")
         if self == other:
             return self.double()
+        if self == (None, None):
+            return other
+        if other == (None, None):
+            return self
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
         l = self.div((y2 - y1), (x2 - x1))
+        if l == None:
+            return self.curve.point(None, None)  # point at infinity
 
         x3 = l**2 - x1 - x2
         y3 = l * (x1 - x3) - y1
@@ -99,11 +109,17 @@ class Point:
         return f"({self.x}, {self.y})"
     
     def double(self):
+        if self == (None, None):
+            return self
+        
         x1, y1 = self.x, self.y
         a = self.curve.a
 
+        # TODO: test when it's its own inverse
         l = self.div((3*x1**2 + a), (2*y1))
-        
+        if l == None:
+            return self.curve.point(None, None)  # point at infinity
+
         x3 = l**2 - 2*x1
         y3 = l * (x1 - x3) - y1
 
@@ -113,14 +129,14 @@ class Point:
         return self.curve.point(x3, y3)
     
     def div(self, a, b):
-        return divide(a, b, self.curve.p)
-
+        try:
+            return divide(a, b, self.curve.p)
+        except ValueError:
+            return
+            
 
 curve = Curve(4, 20, 29)
 print(curve)
-
-
-# TODO: add point at infinity
 
 
 def add_demo():
@@ -134,7 +150,7 @@ def mul_demo():
     p1 = curve.point(5, 22)
     p = p1
     k = 1
-    while k < 37:
+    while k < 40:
         p = k * p1
         print(f"{k} * {p1} = {p}")
         x.append(p.x)
