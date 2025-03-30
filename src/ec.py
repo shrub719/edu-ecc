@@ -41,6 +41,15 @@ class Curve:
 
         return f"y^2 = x^3 {a}x {b}"
     
+    def implicit(self):  # converts to manim implicit lambda function
+        # graph = ImplicitFunction(
+        #     lambda x, y: x**3 + 7 - y**2,
+        #     color=BLUE
+        # )
+        def func(x, y):
+            return x**3 + self.a * x + self.b * x - y**2
+        return func
+    
     def point(self, x, y):
         if x == None and y == None:
             return Point(self, x, y)
