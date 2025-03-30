@@ -11,10 +11,11 @@ def coefficient(x):
 def inverse(x, m):
     g = math.gcd(x, m) 
     if (g != 1):
-        raise ValueError("Inverse does not exist")
+        raise ValueError(f"inverse of {x} does not exist mod {m}")
     else:  
         # modulo inverse is b^(m-2) mod m - ??!??!?!
         return pow(x, m - 2, m)
+    # TODO: use euclid algorithm
 
 def divide(a, b, m):
     a = a % m
@@ -39,7 +40,7 @@ class Curve:
         y_side = y**2 % p
         x_side = (x**3 + self.a * x + self.b) % p
         if y_side != x_side:
-            raise ValueError(f"Point ({x}, {y}) does not exist on curve {self}")
+            raise ValueError(f"point ({x}, {y}) does not exist on curve {self}")
         return Point(self, x, y)
         
     
@@ -56,7 +57,7 @@ class Point:
 
     def __add__(self, other):
         if not isinstance(other, Point): 
-            raise TypeError
+            raise TypeError("points can only be added to other points")
         if self == other:
             return self.double()
 
@@ -71,6 +72,9 @@ class Point:
         return self.curve.point(x3, y3)
     
     def __mul__(self, scalar: int):
+        if not isinstance(scalar, int): 
+            raise TypeError("points must be multiplied by an integer scalar")
+        
         product = self
         for i in range(scalar-1):
             product = product + self
