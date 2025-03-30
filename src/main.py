@@ -112,9 +112,16 @@ print(p1, "+", p2, "=", p1 + p2)
 
 # TODO: add point at infinity
 
-p = p2
+x, y = [], []
+
+p = p1
 k = 1
-while True:
-    p = k * p2
+while k < 37:
+    p = k * p1
     print(f"{k} * {p2} = {p}")
+    x.append(p.x)
+    y.append(p.y)
     k += 1
+
+pl.plot(x, y, "o")
+pl.show()
