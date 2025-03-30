@@ -55,4 +55,4 @@ The paper should cover (in chronological <!-- chronological?? --> order):
 
 ---
 
-$$  y^2 = x^3 + 7  $$
+$$  y^2 = x^3 + 4x + 20  $$
