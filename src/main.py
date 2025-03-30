@@ -105,15 +105,12 @@ p1 = curve.point(5, 22)
 p2 = curve.point(16, 27)
 print(p1, "+", p2, "=", p1 + p2)
 
-p3 = curve.point(5, 22)
-print(f"2 * {p3} = {p3 * 2}")
-print(f"3 * {p3} = {3 * p3}")
 
 # TODO: add point at infinity
 
-p = p3
+p = p2
 k = 1
 while True:
-    p = k * p3
-    print(f"{k}G = ({p.x}, {p.y})")
+    p = k * p2
+    print(f"{k} * {p2} = {p}")
     k += 1
