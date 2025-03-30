@@ -5,9 +5,10 @@
 # curve = Curve(a=0, b=7, field=field, name="p1707")
 
 class Curve:
-    def __init__(self, a, b):
+    def __init__(self, a, b, p):
         self.a = a
         self.b = b
+        self.p = p
 
     @staticmethod
     def _coefficient(x):
@@ -22,8 +23,12 @@ class Curve:
 
         return f"y^2 = x^3 {a}x {b}"
     
+    def point(self, x, y):
+        return Point(self, x, y)
+    
 class Point:
-    def __init__(self, x, y):
+    def __init__(self, curve, x, y):
+        self.curve = curve
         self.x = x
         self.y = y  # TODO: encode as even/odd?
 
@@ -42,7 +47,7 @@ class Point:
 
         x3 = ( (y2 - y1) // (x2 - x1) )^2 - x1 - x2
         y3 = ( (y2 - y1) // (x2 - x1) ) * (x1 - x3) - y1
-        return Point(x3, y3)
+        return self.curve.point(x3, y3)
     
     def __mul__(self, other):
         return "AH"  # TODO
@@ -51,11 +56,11 @@ class Point:
         return f"({self.x}, {self.y})"
 
 
-curve = Curve(0, 7)
+curve = Curve(4, 20, 29)
 print(curve)
-p1 = Point(1, 1)
-p2 = Point(1, 1)
-print(p1 + p2)
+p1 = curve.point(5, 22)
+p2 = curve.point(16, 27)
+print(p1, "+", p2, "=", p1 + p2)  # FIX well. it's wrong
 
 # x = []
 # y = []
