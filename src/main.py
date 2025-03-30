@@ -22,6 +22,12 @@ def divide(a, b, m):
     inv = inverse(b, m)
     return (inv * a) % m
 
+def is_coordinate(x):
+    if not isinstance(x, tuple): return False
+    if len(x) != 2: return False
+    if not (type(x[0]) is int and type(x[1]) is int): return False
+    return True
+
 
 class Curve:
     def __init__(self, a, b, p):
@@ -51,9 +57,13 @@ class Point:
         self.y = y  # TODO: encode as even/odd?
 
     def __eq__(self, other):
-        if not isinstance(other, Point):
-            return False
-        return self.x == other.x and self.y == other.y
+        if isinstance(other, Point):
+            return self.x == other.x and self.y == other.y
+        if is_coordinate(other):
+            return self.x == other[0] and self.y == other[1]
+        
+        return False
+        
 
     def __add__(self, other):
         if not isinstance(other, Point): 
