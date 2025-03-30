@@ -58,7 +58,7 @@ class Point:
         if not isinstance(other, Point): 
             raise TypeError
         if self == other:
-            return self.__mul__(2)
+            return self.double()
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
@@ -70,9 +70,14 @@ class Point:
 
         return self.curve.point(x3, y3)
     
-    def __mul__(self, other):
-        if other == 2:
-            return self.double()
+    def __mul__(self, scalar: int):
+        product = self
+        for i in range(scalar-1):
+            product = product + self
+        
+        return product
+
+    __rmul__ = __mul__
 
     def __repr__(self):
         return f"({self.x}, {self.y})"
@@ -102,18 +107,13 @@ print(p1, "+", p2, "=", p1 + p2)
 
 p3 = curve.point(5, 22)
 print(f"2 * {p3} = {p3 * 2}")
-print(f"(using addition) 2 * {p3} = {p3 + p3}")
+print(f"3 * {p3} = {3 * p3}")
 
-# x = []
-# y = []
-# p = curve.g
-# k = 1
-# while p.x:
-#     p = k * curve.g
-#     print(f"{k}G = ({p.x}, {p.y})")
-#     x.append(p.x)
-#     y.append(p.y)
-#     k += 1
+# TODO: add point at infinity
 
-# plt.plot(x, y, "o")
-# plt.show()
+p = p3
+k = 1
+while True:
+    p = k * p3
+    print(f"{k}G = ({p.x}, {p.y})")
+    k += 1
