@@ -11,7 +11,7 @@ def coefficient(x):
 def inverse(x, m):
     g = math.gcd(x, m) 
     if (g != 1):
-        raise ValueError("Inverse does not exist.")
+        raise ValueError("Inverse does not exist")
     else:  
         # modulo inverse is b^(m-2) mod m - ??!??!?!
         return pow(x, m - 2, m)
@@ -35,6 +35,11 @@ class Curve:
         return f"y^2 = x^3 {a}x {b}"
     
     def point(self, x, y):
+        p = self.p
+        y_side = y**2 % p
+        x_side = (x**3 + self.a * x + self.b) % p
+        if y_side != x_side:
+            raise ValueError(f"Point ({x}, {y}) does not exist on curve {self}")
         return Point(self, x, y)
         
     
@@ -97,6 +102,7 @@ print(p1, "+", p2, "=", p1 + p2)
 
 p3 = curve.point(5, 22)
 print(f"2 * {p3} = {p3 * 2}")
+print(f"(using addition) 2 * {p3} = {p3 + p3}")
 
 # x = []
 # y = []
