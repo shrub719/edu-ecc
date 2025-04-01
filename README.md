@@ -30,9 +30,9 @@ The program should (in order of priority within categories):
 TODO <!-- instructions -->
 
 
-## Paper
+## Essay
 
-The paper accompanying this program, [Paper Name :)](./utils/paperName.md), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and lattice-based cryptography.  
+The essay accompanying this program [here](./utils/paper.md), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and lattice-based cryptography.  
 It is written in MarkDown with TeX support (using [VS Code's KaTeX plugin](https://github.com/microsoft/vscode-markdown-it-katex)). <!-- REMEMBER to export to PDF or something w pandoc -->
 
 ### Goals
