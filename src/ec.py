@@ -76,7 +76,6 @@ class Point:
         
         return False
         
-
     def __add__(self, other):
         if not isinstance(other, Point): 
             raise TypeError("points can only be added to other points")
@@ -104,6 +103,9 @@ class Point:
     def __mul__(self, scalar: int):
         if not isinstance(scalar, int): 
             raise TypeError("points must be multiplied by an integer scalar")
+        
+        if scalar == 0:
+            return self.curve.point(None, None)  # point at infinity
         
         product = self
         for i in range(scalar-1):

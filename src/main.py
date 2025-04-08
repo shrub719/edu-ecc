@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from ec import *
+from crypto import *
     
 
 curve = Curve(4, 20, 29)
@@ -33,6 +34,9 @@ def inf_demo():
     p2 = curve.point(5, 7)
     print(f"{p1} + {p2} = {p1 + p2}")
 
+def crypto_demo():
+    alice = Client(curve, (5, 22), 37)
 
-mul_demo()
-inf_demo()
+
+
+crypto_demo()
