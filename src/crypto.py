@@ -25,7 +25,7 @@ class Client:
 
         top = f" CLIENT {self.name} "
         top = "+" + top.center(length + 2, "-") + "+"
-        bottom = "\n+" + "-" * (length + 2) + "+\n"
+        bottom = "\n+" + "-" * (length + 2) + "+"
 
         def row(inside, outside):
             return "\n| " + inside.center(length, " ") + " |  " + outside
@@ -41,14 +41,11 @@ class Client:
         self._private = randint(2, self.curve.order - 1)  # NOT cryptographically secure
         self.public = self.curve.generator * self._private
     
-    def get_shared_key(self, other, quiet=False):
+    def get_shared_key(self, other):
         if not isinstance(other, Client): 
             raise ValueError("can only get shared key between two Clients")
         if not self.curve == other.curve:
             raise ValueError("Clients must share the same curve and generator")
         key = other.public * self._private
-
-        if not quiet:
-            print("sharing key :)")
 
         return key

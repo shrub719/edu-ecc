@@ -41,11 +41,13 @@ def crypto_demo():
 
     print()
     print(alice)
+    print()
     print(bob)
+    print()
 
     k1 = alice.get_shared_key(bob)
     k2 = bob.get_shared_key(alice)
-    print(k1, k2)
+    print(f"Alice: {k1}\nBob: {k2}")
 
 
 crypto_demo()
