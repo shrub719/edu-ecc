@@ -13,6 +13,7 @@ class Client:
         self.__private = randint(2, order-1)  # NOT cryptographically secure
         self.public = self.generator * self.__private
     
-    def get_shared_key(self, other: Curve):
+    def get_shared_key(self, other: Client):
+        if not isinstance(other, Client): raise ValueError("can only get shared key between two Clients")
         key = other.public * self.__private
         return key

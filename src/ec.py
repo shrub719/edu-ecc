@@ -77,7 +77,7 @@ class Point:
         return False
         
 
-    def __add__(self, other):
+    def __add__(self, other: Point):
         if not isinstance(other, Point): 
             raise TypeError("points can only be added to other points")
         if self == other:
@@ -89,7 +89,7 @@ class Point:
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
-        l = self.div((y2 - y1), (x2 - x1))
+        l = self._div((y2 - y1), (x2 - x1))
         if l == None:
             return self.curve.point(None, None)  # point at infinity
 
@@ -124,7 +124,7 @@ class Point:
         a = self.curve.a
 
         # TODO: test when it's its own inverse
-        l = self.div((3*x1**2 + a), (2*y1))
+        l = self._div((3*x1**2 + a), (2*y1))
         if l == None:
             return self.curve.point(None, None)  # point at infinity
 
@@ -136,7 +136,7 @@ class Point:
 
         return self.curve.point(x3, y3)
     
-    def div(self, a: int, b: int):
+    def _div(self, a: int, b: int):
         try:
             return divide(a, b, self.curve.p)
         except ValueError:
