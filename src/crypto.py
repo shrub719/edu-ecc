@@ -13,19 +13,6 @@ class CryptoCurve(Curve):
         self.generator = self.point(generator[0], generator[1])
         self.order = order
 
-    def __eq__(self, other):
-        if isinstance(other, CryptoCurve):
-            # HACK: is this even needed?
-            return (
-                self.a == other.a
-                and self.b == other.b
-                and self.p == other.p
-                and self.generator == other.generator
-                and self.order == other.order
-            )
-        
-        return False
-
 
 class Client:
     def __init__(self, curve: CryptoCurve):
