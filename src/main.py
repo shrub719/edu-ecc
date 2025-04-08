@@ -35,8 +35,13 @@ def inf_demo():
     print(f"{p1} + {p2} = {p1 + p2}")
 
 def crypto_demo():
-    alice = Client(curve, (5, 22), 37)
-
+    crypto_curve = curve.to_crypto_curve((5, 22), 37)
+    alice = Client(crypto_curve)
+    bob = Client(crypto_curve)
+    k1 = alice.get_shared_key(bob)
+    k2 = bob.get_shared_key(alice)
+    print(alice._private, bob._private)
+    print(k1, k2)
 
 
 crypto_demo()
