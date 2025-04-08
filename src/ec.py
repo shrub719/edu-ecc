@@ -77,7 +77,7 @@ class Point:
         return False
         
 
-    def __add__(self, other: Point):
+    def __add__(self, other):
         if not isinstance(other, Point): 
             raise TypeError("points can only be added to other points")
         if self == other:
