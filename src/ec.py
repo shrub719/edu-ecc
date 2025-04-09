@@ -76,10 +76,11 @@ class Point:
         
         return False
         
-
     def __add__(self, other):
         if not isinstance(other, Point): 
             raise TypeError("points can only be added to other points")
+        if not self.curve == other.curve:
+            raise ValueError("points being added together must be on the same curve")
         if self == other:
             return self.double()
         if self == (None, None):
@@ -89,7 +90,7 @@ class Point:
 
         x1, y1, x2, y2 = self.x, self.y, other.x, other.y
 
-        l = self.div((y2 - y1), (x2 - x1))
+        l = self._div((y2 - y1), (x2 - x1))
         if l == None:
             return self.curve.point(None, None)  # point at infinity
 
@@ -104,6 +105,9 @@ class Point:
     def __mul__(self, scalar: int):
         if not isinstance(scalar, int): 
             raise TypeError("points must be multiplied by an integer scalar")
+        
+        if scalar == 0:
+            return self.curve.point(None, None)  # point at infinity
         
         product = self
         for i in range(scalar-1):
@@ -124,7 +128,7 @@ class Point:
         a = self.curve.a
 
         # TODO: test when it's its own inverse
-        l = self.div((3*x1**2 + a), (2*y1))
+        l = self._div((3*x1**2 + a), (2*y1))
         if l == None:
             return self.curve.point(None, None)  # point at infinity
 
@@ -136,7 +140,7 @@ class Point:
 
         return self.curve.point(x3, y3)
     
-    def div(self, a: int, b: int):
+    def _div(self, a: int, b: int):
         try:
             return divide(a, b, self.curve.p)
         except ValueError:

@@ -1,33 +1,40 @@
 # Edu-ECC [WIP]
 
-A simplified visual demonstration of several mathematical concepts in cryptography. Currently a work in progress. Part of my Independent Research Project. <!-- 1x -->
+A simplified visual demonstration of several mathematical concepts in cryptography. Currently a work in progress. Part of my Independent Research Project.
+
+> **Note:** this program is **NOT** cryptographically secure or fit for use in production. It is purely for educational purposes and does not guarantee strong elliptic curves or random number generation.
 
 
 ## Structure
 
 This project is composed of two parts:
-- [A program](#program-edu-ecc) written in Python used to visually demonstrate several mathematical concepts in cryptography. <!-- 2x -->
-- [An essay/paper](#paper) <!-- FIX: essay or paper? --> on elliptic curve cryptography and the issues posed to cryptographic standards by technological advancement.
+- [A program](#program-edu-ecc) written in Python used to implement and visually demonstrate elliptic curve cryptography
+- [A paper](#paper) on ECC and the issues posed to cryptographic standards by technological advancement
 
 
 ## Program (Edu-ECC)
 
-[Edu-ECC](src/main.py) is a Python script meant to visually demonstrate some of the key trapdoor functions used in modern cryptography and their origins. <!-- 3x... -->
-<!-- TODO: DRY -->
+[Edu-ECC](src/main.py) is a Python program that implements elliptic curve arithmetic over finite fields from scratch, and uses this for several EC-based cryptography schemes.
 
 ### Goals
-The program should (in order of priority within categories):
-- Demonstrate ECC
-    - Draw elliptic curves and/or their discrete finite field representations using matplotlib
-    - Animate point scalar multiplication using tangents
-    - Animate the restriction of ECCs to a finite prime field
-    - Implement EC calculation and arithmetic operations (i.e. stop using `tinyec`)
-    - Implement ECDH-based secret key derivation
-    - Allow for the tweaking of curve parameters to demonstrate the importance of choosing cryptographically secure curves
-- Demonstrate lattice-based cryptography methods
+The program should (in order of priority):
+- ~~Draw elliptic curves and/or their discrete finite field representations using matplotlib~~
+- Animate point scalar multiplication using tangents
+- ~~Implement EC calculation and arithmetic operations (i.e. stop using `tinyec`)~~
+- ~~Implement ECDH-based secret key derivation~~
+- **Implement EC hybrid assymetric key encryption** 
+- Allow for the tweaking of curve parameters to demonstrate the importance of choosing cryptographically secure curves **[?]**
 
 ### Usage
-TODO <!-- instructions -->
+Clone this repo and run:
+```
+pip install -r requirements.txt
+```  
+
+`main.py` contains several demo functions to show the capabilities of the libraries.
+
+For information on using the libraries themselves, check the [documentation](docs/README.md).
+<!-- TODO: make it into an actual pypi library? -->
 
 
 ## Essay
@@ -40,7 +47,7 @@ The paper should cover (in chronological <!-- chronological?? --> order):
 - ECC
     - What they are and useful/special properties
     - Finite fields, restrictions to prime finite fields
-    - Binary fields??
+    - Binary fields **[?]**
     - Operations within the field of points (addition, scalar multiplication, point at infinity)
     - ECC-based key derivation
 - Lattice-based cryptography
