@@ -30,7 +30,7 @@ Crypto implements a `DHClient` class that represents a device with a public-priv
 ```py
 alice = DHClient(crypto_curve, "Alice")
 ```
-
+The client's private key is generated with `random.randint` and as such is not cryptographically secure.   
 A client's key pair can be accessed by `DHClient.public` and `DHClient._private`. 
 
 ### Key derivation
