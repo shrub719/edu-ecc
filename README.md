@@ -24,7 +24,14 @@ The program should (in order of priority):
 - Allow for the tweaking of curve parameters to demonstrate the importance of choosing cryptographically secure curves **[?]**
 
 ### Usage
-TODO
+Clone this repo and run:
+```
+pip install -r requirements.txt
+```  
+
+`main.py` contains several demo functions to show the capabilities of the libraries.  
+For information on using the libraries themselves, check the [documentation](utils/docs/README.md).
+<!-- TODO: make it into an actual pypi library? -->
 
 
 ## Paper
