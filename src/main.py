@@ -50,8 +50,10 @@ def ecdh_demo():
     # input()
 
 def ecdh_mesh_demo():
+    n = 50
+
     crypto_curve = curve.to_crypto_curve((5, 22), 37)
-    clients = [DHClient(crypto_curve, str(i)) for i in range(10)]
+    clients = [DHClient(crypto_curve, str(i)) for i in range(n)]
     show_clients(*clients)
 
     dh_mesh_connect(*clients)
