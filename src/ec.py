@@ -79,6 +79,8 @@ class Point:
     def __add__(self, other):
         if not isinstance(other, Point): 
             raise TypeError("points can only be added to other points")
+        if not self.curve == other.curve:
+            raise ValueError("points being added together must be on the same curve")
         if self == other:
             return self.double()
         if self == (None, None):
