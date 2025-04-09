@@ -6,12 +6,10 @@ def show_clients(*args):
     print()
     for client in args:
         print(client)
-        print()
 
 def dh_connect(client1, client2):
     client1.generate_shared_key(client2)
     client2.generate_shared_key(client1)
-
 
 def dh_mesh_connect(*clients):
     i = 0
@@ -46,7 +44,7 @@ class DHClient:
 
         top = f" CLIENT {self.name} "
         top = "+" + top.center(length + 2, "-") + "+"
-        bottom = "\n+" + "-" * (length + 2) + "+"
+        bottom = "\n+" + "-" * (length + 2) + "+\n"
 
         def row(inside, outside):
             return "\n| " + inside.center(length, " ") + " |  " + outside
