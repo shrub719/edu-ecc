@@ -30,3 +30,5 @@ Crypto implements a `DHClient` class that represents a device with a public-priv
 ```py
 alice = DHClient(crypto_curve, "Alice")
 ```
+
+A client's key pair can be accessed by `DHClient.public` and `DHClient._private`.
