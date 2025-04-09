@@ -31,8 +31,9 @@ Clone this repo and run:
 pip install -r requirements.txt
 ```  
 
-`main.py` contains several demo functions to show the capabilities of the libraries.  
-For information on using the libraries themselves, check the [documentation](utils/docs/README.md).
+`main.py` contains several demo functions to show the capabilities of the libraries.
+
+For information on using the libraries themselves, check the [documentation](docs/README.md).
 <!-- TODO: make it into an actual pypi library? -->
 
 
