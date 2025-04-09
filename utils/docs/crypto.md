@@ -4,6 +4,8 @@ import crypto
 ```
 Crypto extends classes in EC to implement several cryptography schemes, such as ECDH and hybrid assymetric key encryption.
 
+> **Note:** this module is **NOT** cryptographically secure or fit for use in production. It is purely for educational purposes and does not guarantee strong elliptic curves or random number generation.
+
 
 ## Curve extensions
 

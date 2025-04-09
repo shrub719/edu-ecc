@@ -2,6 +2,8 @@
 
 A simplified visual demonstration of several mathematical concepts in cryptography. Currently a work in progress. Part of my Independent Research Project.
 
+> **Note:** this program is **NOT** cryptographically secure or fit for use in production. It is purely for educational purposes and does not guarantee strong elliptic curves or random number generation.
+
 
 ## Structure
 
