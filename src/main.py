@@ -34,10 +34,8 @@ def inf_demo():
     p2 = curve.point(5, 7)
     print(f"{p1} + {p2} = {p1 + p2}")
 
-def crypto_demo():
-    crypto_curve = curve.to_crypto_curve((5, 22), 37)
-    alice = Client(crypto_curve, "Alice")
-    bob = Client(crypto_curve, "Bob")
+def ecdh_demo():
+    alice, bob = create_dh_connection(curve, (5, 22), 37)
 
     print()
     print(alice)
@@ -50,4 +48,4 @@ def crypto_demo():
     print(f"Alice: {k1}\nBob: {k2}")
 
 
-crypto_demo()
+ecdh_demo()

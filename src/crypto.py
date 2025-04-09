@@ -1,6 +1,14 @@
 from ec import *
 from random import randint
 
+
+def create_dh_connection(curve: Curve, generator: tuple, order: int, name1: str = "Alice", name2: str = "Bob"):
+    crypto_curve = curve.to_crypto_curve(generator, order)
+    client1 = DHClient(crypto_curve, name1)
+    client2 = DHClient(crypto_curve, name2)
+    return client1, client2
+
+
 class Curve(Curve):
     def to_crypto_curve(self, generator: tuple, order: int):
         return CryptoCurve(self.a, self.b, self.p, generator, order)
@@ -14,7 +22,7 @@ class CryptoCurve(Curve):
         self.order = order
 
 
-class Client:
+class DHClient:
     def __init__(self, curve: CryptoCurve, name):
         self.curve = curve
         self.name = name
@@ -42,10 +50,10 @@ class Client:
         self.public = self.curve.generator * self._private
     
     def get_shared_key(self, other):
-        if not isinstance(other, Client): 
-            raise ValueError("can only get shared key between two Clients")
+        if not isinstance(other, DHClient): 
+            raise ValueError("can only get shared key between two DHClients")
         if not self.curve == other.curve:
-            raise ValueError("Clients must share the same curve and generator")
+            raise ValueError("DHClients must share the same curve and generator")
         key = other.public * self._private
 
         return key
