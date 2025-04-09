@@ -8,6 +8,18 @@ def show_clients(*args):
         print(client)
         print()
 
+def dh_connect(client1, client2):
+    client1.generate_shared_key(client2)
+    client2.generate_shared_key(client1)
+
+
+def dh_mesh_connect(*clients):
+    i = 0
+    for client in clients:
+        i += 1
+        for other in clients[i:]:
+            dh_connect(client, other)
+
 
 class Curve(Curve):
     def to_crypto_curve(self, generator: tuple, order: int):

@@ -38,16 +38,15 @@ def ecdh_demo():
     crypto_curve = curve.to_crypto_curve((5, 22), 37)
     alice = DHClient(crypto_curve, "Alice")
     bob = DHClient(crypto_curve, "Bob")
+    charlie = DHClient(crypto_curve, "Charlie")
 
     show_clients(alice, bob)
-    input()
+    # input()
 
-    alice.generate_shared_key(bob)
-    bob.generate_shared_key(alice)
-    k1, k2 = alice.keys["Bob"], bob.keys["Alice"]
+    dh_mesh_connect(alice, bob, charlie)
 
-    show_clients(alice, bob)
-    input()
+    show_clients(alice, bob, charlie)
+    # input()
 
 
 ecdh_demo()
