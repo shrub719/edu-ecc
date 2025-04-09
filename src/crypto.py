@@ -1,5 +1,7 @@
 from ec import *
 from random import randint
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 def show_clients(*args):
@@ -17,6 +19,18 @@ def dh_mesh_connect(*clients):
         i += 1
         for other in clients[i:]:
             dh_connect(client, other)
+
+def dh_mesh_show(*clients):
+    G = nx.Graph()
+
+    for client in clients:
+        G.add_node(client.name)
+    for client in clients:
+        for name in client.keys:
+            G.add_edge(client.name, name)
+            
+    nx.draw(G, with_labels=True, font_weight='bold')
+    plt.show()
 
 
 class Curve(Curve):

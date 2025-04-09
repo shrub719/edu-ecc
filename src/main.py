@@ -46,6 +46,7 @@ def ecdh_demo():
     dh_mesh_connect(alice, bob, charlie)
 
     show_clients(alice, bob, charlie)
+    dh_mesh_show(alice, bob, charlie)
     # input()
 
 def ecdh_mesh_demo():
@@ -55,6 +56,8 @@ def ecdh_mesh_demo():
 
     dh_mesh_connect(*clients)
     show_clients(*clients)
+    dh_mesh_show(*clients)
 
 
+ecdh_demo()
 ecdh_mesh_demo()
