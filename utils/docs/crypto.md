@@ -1,5 +1,5 @@
 # Crypto
-```
+```py
 import crypto
 ```
 Crypto extends classes in EC to implement several cryptography schemes, such as ECDH and hybrid assymetric key encryption.
