@@ -35,17 +35,19 @@ def inf_demo():
     print(f"{p1} + {p2} = {p1 + p2}")
 
 def ecdh_demo():
-    alice, bob = create_dh_connection(curve, (5, 22), 37)
+    crypto_curve = curve.to_crypto_curve((5, 22), 37)
+    alice = DHClient(crypto_curve, "Alice")
+    bob = DHClient(crypto_curve, "Bob")
 
-    print()
-    print(alice)
-    print()
-    print(bob)
-    print()
+    show_clients(alice, bob)
+    input()
 
-    k1 = alice.get_shared_key(bob)
-    k2 = bob.get_shared_key(alice)
-    print(f"Alice: {k1}\nBob: {k2}")
+    alice.generate_shared_key(bob)
+    bob.generate_shared_key(alice)
+    k1, k2 = alice.keys["Bob"], bob.keys["Alice"]
+
+    show_clients(alice, bob)
+    input()
 
 
 ecdh_demo()
