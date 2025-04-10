@@ -38,15 +38,61 @@ Abstract!!
 An elliptic curve is an implicit function where one variable has a degree of 2 and the other has a degree of 3. 
 
 
-\section{Elliptic curves as an abelian variety}
+\section{Elliptic curve point arithmetic}
+
+\subsection{Elliptic curves as an abelian variety}
 
 An abelian group is a kdfhjgkdfhjkg. A group $G$ that acts as an abelian group under an operation (such as addition, $+$) is written as $(G, +)$.
 
 \subsection{Point addition \& doubling}
 
+\subsubsection{Proof}
+
+Take two points on an elliptic curve $E$ where $A(x_1, y_1) + B(x_2, y_2) = C(x_3, y_3)$ . Let the line through $A$, $B$ and $C'(x_3, -y_3)$ be $L$ such that
+\begin{gather*}
+    E: y^2 = x^2 + ax + b \\
+    L: y = \lambda x + m \\
+    \text{where } \lambda = \frac{y_2-y_1}{x_2-x_1}
+\end{gather*}
+
+The intersection of $E$ and $L$ satisfies the equation
+\begin{align*}
+    x^3 + ax + b = (\lambda x + m)^2 \\
+    x^3 + ax + b = \lambda^2 x^2 + 2 \lambda x m + m^2 \\
+    x^3 - \lambda^2 x^2 + (a - 2 \lambda m)x + b - m^2
+\end{align*}
+
+We also know this equation has roots at $x_1$, $x_2$ and $x_3$, and can be written as
+\begin{align*}
+    (x-x_1)(x-x_2)(x-x_3)=0 \\
+    x^3 - (x_1 + x_2 + x_3)x^2 + (x_1x_2 + x_1x_3 + x_2x_3)x - x_1x_2x_3 = 0
+\end{align*}
+
+Comparing coefficients of $x^2$ in the two forms of the equation, we can see that \[\lambda^2 = x_1 + x_2 = x_3\] and therefore \[x_3 = \lambda^2 - x_1 - x_2\]
+
+Which gives the equation for $x_3$. To find $y_3$, we use the fact that $\lambda$ is also equal to the gradient between $C'(x_3, -y_3)$ and $B$:
+\begin{align*}
+    \lambda = \frac{-y_3-y_1}{x_3-x_1} \\
+    -y_3 - y_1 = \lambda(x_3-x_1) \\
+    y_3 = \lambda(x_1-x_3)-y_1
+\end{align*}
+and we have the equation for $y_3$.
+
+Adapting these equations for point doubling $A + A = C$ is easy; as the line is no longer through two points but rather the tangent at $A$, we differentiate $E$ to find the new gradient $\lambda$:
+\begin{align*}
+    y^2 = x^3 + ax + b \\
+    2y\frac{dy}{dx} = 3x^2 + a \\
+    \frac{dy}{dx} = \frac{3x^2 + a}{2y}
+\end{align*}
+and so \[\lambda = \frac{3x_1^2 + a}{2y_1}\]
+
+Also, as $x_1 = x_2$, the equation for $x_3$ becomes \[x_3 = \lambda^2-2x_1\]
+
+The equation for $y_3$ is unchanged.
+
 \subsection{Point at infinity}
 
-When the points of an elliptic curve are used as an abelian group $(G, +)$, we need an identity point, the \emph{point at infinity}, which is written as $\infty$, $\mathcal{O}$ or $0$. This point is such that, for any point $A$:
+When the points of an elliptic curve are used as an abelian group $(G, +)$, we need an identity point, the \textit{point at infinity}, which is written as $\infty$, $\mathcal{O}$ or $0$. This point is such that, for any point $A$:
 
 \begin{enumerate}
     \item $A + \infty = A$
@@ -58,13 +104,14 @@ When the points of an elliptic curve are used as an abelian group $(G, +)$, we n
 
 \section{Elliptic curves over prime fields}
 
-
-\section{Point multiplication}
-
-\subsection{Hardness}
+\subsection{Subgroups}
 
 
 \section{Public key cryptography with elliptic curves}
+
+\subsection{Point multiplication}
+
+\subsection{Elliptic Curve Diffie-Hellman (ECDH)}
 
 I am citing right now\cite[3-4]{greenwade93} and even now\cite[5-6]{greenwade93}.
 
