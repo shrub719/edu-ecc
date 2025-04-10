@@ -1,0 +1,75 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage[%
+  titleformat=italic,% Titles in italic 
+  titleformat=commasep,% A comma between athors and title 
+  titleformat=all,% Always show a title (or a short title)
+  commabeforerest,% A comma after title 
+  ibidem=strict,% 
+  citefull=first,% The first citing in full form 
+  oxford,% The oxford style
+  super,% Footnotes 
+  dotafter=true,% 
+  see,% An extra optional argument as a prenote 
+  idem
+]{jurabib}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Elliptic curves in modern cryptography}
+\author{Andrei Lupsa}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Abstract!!
+\end{abstract}
+
+
+\section{Introduction to elliptic curves}
+
+An elliptic curve is an implicit function where one variable has a degree of 2 and the other has a degree of 3. 
+
+
+\section{Elliptic curves as an abelian variety}
+
+An abelian group is a kdfhjgkdfhjkg. A group $G$ that acts as an abelian group under an operation (such as addition, $+$) is written as $(G, +)$.
+
+\subsection{Point addition \& doubling}
+
+\subsection{Point at infinity}
+
+When the points of an elliptic curve are used as an abelian group $(G, +)$, we need an identity point, the \emph{point at infinity}, which is written as $\infty$, $\mathcal{O}$ or $0$. This point is such that, for any point $A$:
+
+\begin{enumerate}
+    \item $A + \infty = A$
+    \item $\infty + A = A$
+    \item $A + -A = \infty$ where $-A$ is the inverse of $A$
+    \item $\infty + \infty = \infty$
+\end{enumerate}
+
+
+\section{Elliptic curves over prime fields}
+
+
+\section{Point multiplication}
+
+\subsection{Hardness}
+
+
+\section{Public key cryptography with elliptic curves}
+
+I am citing right now\cite[3-4]{greenwade93} and even now\cite[5-6]{greenwade93}.
+
+\newpage
+\bibliographystyle{jox}
+\bibliography{bibliography}
+
+\end{document}
