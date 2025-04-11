@@ -20,7 +20,7 @@
 
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{bbold}
 
 \title{Elliptic curves in modern cryptography}
 \author{Andrei Lupsa}
@@ -35,14 +35,33 @@ Abstract!!
 
 \section{Introduction to elliptic curves}
 
-An elliptic curve is an implicit function where one variable has a degree of 2 and the other has a degree of 3. 
+Formally, an elliptic curve is any implicit function where one variable has a degree of 2 and the other has a degree of 3. The kind we are interested in is elliptic curves in \textbf{short Weierstrass form}. This means they are in the form $y^2 = x^3 + ax^2 + b$. Examples of elliptic curves in short Weierstrass form can be seen in Figure \ref{fig:curves}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{images/curve-a0-b1.png}
+    \includegraphics[width=0.2\linewidth]{images/curve-a-1-b1.png}
+    \includegraphics[width=0.2\linewidth]{images/curve-a-3-b-1.png}
+    \caption{Several elliptic curves with different parameters.}
+    \label{fig:curves}
+\end{figure}
 
 
 \section{Elliptic curve point arithmetic}
 
 \subsection{Elliptic curves as an abelian variety}
 
-An abelian group is a kdfhjgkdfhjkg. A group $G$ that acts as an abelian group under an operation (such as addition, $+$) is written as $(G, +)$.
+An abelian group \textit{under a certain operation} is a group for which that operation is closed, commutative and associative, and for which there exists an inverse for every element and an identity element.\cite[11]{wp}
+
+A group $G$ that acts as an abelian group under an operation addition, $+$, is written as $(G, +)$. In other words, an abelian group $(G, +)$ has the following properties for all elements $A \in G$:\cite[11]{guide}
+\begin{enumerate}
+    \item \textbf{Commutativity.} $A + B = B + A$.
+    \item \textbf{Associativity.} $(A + B) + C = A + (B + C)$.
+    \item \textbf{Identity element.} There exists an element $I$ such that $A + I = I + A = A$.
+    \item \textbf{Inverse elements.} $A + A' = A' + A = I$, where $A'$ is the inverse of $A$.
+\end{enumerate}
+
+An example of an abelian group is the integers under addition $(\mathbb{Z}, +)$, with the identity element $0$. The inverse of, for example, $3$ is $-3$. An example of something that is \textit{not} an abelian group is the real numbers under multiplication $(\mathbb{R}, \times)$, because $0$ has no inverse. However, the real numbers excluding $0$ is an abelian group $(\mathbb{R} \setminus \{0\}, \times)$.
 
 \subsection{Point addition \& doubling}
 
@@ -76,7 +95,7 @@ Which gives the equation for $x_3$. To find $y_3$, we use the fact that $\lambda
     -y_3 - y_1 = \lambda(x_3-x_1) \\
     y_3 = \lambda(x_1-x_3)-y_1
 \end{align*}
-and we have the equation for $y_3$.
+and we have the equation for $y_3$.\cite{proof}
 
 Adapting these equations for point doubling $A + A = C$ is easy; as the line is no longer through two points but rather the tangent at $A$, we differentiate $E$ to find the new gradient $\lambda$:
 \begin{align*}
@@ -112,7 +131,6 @@ When the points of an elliptic curve are used as an abelian group $(G, +)$, we d
 
 \subsection{Elliptic Curve Diffie-Hellman (ECDH)}
 
-I am citing right now\cite{guide} and now\cite{discrete} and now\cite{practical}. And again\cite{guide}! And NIST\cite{nist} too.
 
 \newpage
 \bibliographystyle{jox}
