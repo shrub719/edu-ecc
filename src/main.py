@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import networkx as nx
 from ec import *
 from crypto import *
     
@@ -41,13 +42,15 @@ def ecdh_demo():
     charlie = DHClient(crypto_curve, "Charlie")
 
     show_clients(alice, bob)
-    # input()
 
     dh_mesh_connect(alice, bob, charlie)
 
     show_clients(alice, bob, charlie)
-    dh_mesh_show(alice, bob, charlie)
-    # input()
+
+    G = nx.Graph()
+    dh_mesh_nx_graph(G, alice, bob, charlie)
+    nx.draw(G, with_labels=True, font_weight='bold')
+    plt.show()
 
 def ecdh_mesh_demo():
     n = 50
@@ -58,7 +61,11 @@ def ecdh_mesh_demo():
 
     dh_mesh_connect(*clients)
     show_clients(*clients)
-    dh_mesh_show(*clients)
+    
+    G = nx.Graph()
+    dh_mesh_nx_graph(G, *clients)
+    nx.draw(G, with_labels=True, font_weight='bold')
+    plt.show()
 
 
 ecdh_demo()
