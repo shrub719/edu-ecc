@@ -38,13 +38,14 @@ A client's key pair can be accessed by `DHClient.public` and `DHClient._private`
 To generate a shared key between two clients without transferring private keys, call `DHClient.generate_shared_key(other)` on both clients.  
 However, Crypto has several functions that simplify connections/key exchange:
 
-- To connect two clients, use `dh_connect(client1, client2)`
-- To connect a list of clients in a mesh, use `dh_mesh_connect(*clients)`
+- To connect two clients, use `dh_connect(client1, client2)`.
+- To connect a list of clients in a mesh, use `dh_mesh_connect(*clients)`.
 
 ### Show clients
 
 Crypto provides several ways of displaying clients:
 
 - `print(client)`
-- To show multiple clients, use `show_clients(*clients)`
-- To draw a graph of a connected mesh, use `dh_mesh_show(*clients)`
+- To show multiple clients, use `show_clients(*clients)`.
+- To draw a graph of a connected mesh, use `dh_mesh_nx_graph(graph, *clients)`.  
+Pass in a `networkx` `Graph` object, then `nx.draw()` and `plt.show()` the graph.
