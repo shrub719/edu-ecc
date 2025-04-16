@@ -37,10 +37,10 @@ For information on using the libraries themselves, check the [documentation](doc
 <!-- TODO: make it into an actual pypi library? -->
 
 
-## Essay
+## Paper
 
-The essay accompanying this program [here](./utils/paper.md), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and lattice-based cryptography.  
-It is written in MarkDown with TeX support (using [VS Code's KaTeX plugin](https://github.com/microsoft/vscode-markdown-it-katex)). <!-- REMEMBER to export to PDF or something w pandoc -->
+The paper accompanying this program [here](./utils/main.tex), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and some lattice-based cryptography.  
+It is written in LaTeX as an article with Oxford citation style.
 
 ### Goals
 The paper should cover (in chronological <!-- chronological?? --> order):
