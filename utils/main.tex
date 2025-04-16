@@ -33,9 +33,11 @@ Abstract!!
 \end{abstract}
 
 
-\section{Introduction to elliptic curves}
+\section{Introduction to elliptic curves}\label{intro}
 
-Formally, an elliptic curve is any implicit function where one variable has a degree of 2 and the other has a degree of 3. The kind we are interested in is elliptic curves in \textbf{short Weierstrass form}. This means they are in the form $y^2 = x^3 + ax^2 + b$. Examples of elliptic curves in short Weierstrass form can be seen in Figure \ref{fig:curves}.
+Elliptic curves have a long and beautifully rich history in mathematics. They illustrate perfectly how interconnected mathematics is; elliptic curves have uses ranging across disciplines of mathematics, such as their use in the proof of Fermat's Last Theorem, or the Taniyama–Shimura–Weil conjecture. An interesting application of elliptic curves that is very relevant today is as a trapdoor function in cryptography, but in order to explain their uses it would be useful to cover what they are.
+
+Formally, an elliptic curve is any implicit function where one variable has a degree of 2 and the other has a degree of 3. The kind we are interested in is elliptic curves in \textbf{short Weierstrass form}. This means they are in the form $y^2 = x^3 + ax^2 + b$. Examples of elliptic curves in short Weierstrass form can be seen in Figure \ref{fig:curves}.\cite{guide}
 
 \begin{figure}[h]
     \centering
@@ -46,8 +48,16 @@ Formally, an elliptic curve is any implicit function where one variable has a de
     \label{fig:curves}
 \end{figure}
 
+Some important properties of elliptic curves to consider:
+\begin{enumerate}
+    \item They are symmetrical across the x-axis.
+    \item The "tails" of an elliptic curve are asymptotic --- they get steeper as you go further along them.
+\end{enumerate}
+
 
 \section{Elliptic curve point arithmetic}
+
+The points of an elliptic curve have certain properties that enable us to form a group with a specially defined operation of addition. To understand what this means, we need to take a look at abelian groups.
 
 \subsection{Abelian groups}
 
@@ -83,6 +93,8 @@ To add two points $A$ and $B$:
 \begin{enumerate}
     \item Draw a line between the points $AB$.
     \item A line that intersects an elliptic curve at two points will \textit{always} intersect the curve at a third point (except for special cases, see Section \ref{poi} on the point at infinity).
+    
+    The second property of elliptic curves listed in Section \ref{intro} makes it intuitive that even a line that appears "too steep" will always intersect the curve eventually.
     \item Take the third point and reflect it across the x-axis to obtain point $C$.
     \item $A + B = C$
 \end{enumerate}
@@ -101,7 +113,7 @@ Also important to note is that every point $A(x, y)$ has an inverse $A'(x, -y)$ 
 
 Take two points on an elliptic curve $E$ where $A(x_1, y_1) + B(x_2, y_2) = C(x_3, y_3)$ . Let the line through $A$, $B$ and $C'(x_3, -y_3)$ be $L$ such that
 \begin{gather*}
-    E: y^2 = x^2 + ax + b \\
+    E: y^2 = x^3 + ax + b \\
     L: y = \lambda x + m \\
     \text{where } \lambda = \frac{y_2-y_1}{x_2-x_1}
 \end{gather*}
@@ -144,7 +156,7 @@ The equation for $y_3$ is unchanged.
 When the points of an elliptic curve are used as an abelian group $(G, +)$, we have to define an identity element. We call this identity element the \textit{point at infinity}, which is written as $\infty$, $\mathcal{O}$ or $0$. This is a point that lies on the curve which we imagine to be at $(\infty, \infty)$ and that satisfies the equations
 \begin{enumerate}
     \item $A + \infty = \infty + A = A$
-    \item $\infty + \infty = \infty$
+    \item $\infty + \infty = \infty$\cite{guide}
 \end{enumerate}
 
 The point at infinity is the result of two operations:
@@ -161,10 +173,36 @@ The point at infinity is the result of two operations:
     \label{fig:infinity}
 \end{figure}
 
+\subsection{Point multiplication}\label{mul}
 
-\section{Elliptic curves over prime fields}
+We also define an operation called point scalar multiplication. Importantly, this isn't multiplying two points by each other: rather, it is an extension of addition (and therefore not a "true" operation) where we repeatedly add a point to itself. $2A = A + A$, $3A = A + A + A$.\cite{guide}
+
+Point scalar multiplication is important when considering the elliptic curve discrete logarithm problem (Section \ref{ecdlp}).
+
+
+\section{Elliptic curves over finite fields}
+
+Principles of discrete mathematics often emerge when discussing algorithm-related problems, and elliptic curve cryptography is no exception. Two crucial features of ECC are the elliptic curve discrete logarithm problem (ECDLP, Section \ref{ecdlp}) and the efficient one-way calculation of scalar point multiples (Section \ref{mul}). Both of these depend on the use of modular arithmetic to create finite fields.
 
 \subsection{Finite fields}
+
+Modular arithmetic is often called "clock face arithmetic" because of the likening of restricting calculations modulo $n$ to wrapping numbers around a clock.
+
+% Add diagram?
+
+Performing arithmetic modulo a number $n$ can be thought of as doing specially defined operations on a finite group --- or rather, a special subcategory of group called a field, where multiplication with certain properties is defined as well as addition.
+
+We denote the finite field of integers modulo $n$ as $\mathbb{Z}_n$. This group has only a finite number of elements; for example, the finite field over which we do arithmetic modulo $29$ --- $\mathbb{Z}_{29}$ --- contains only the numbers $\{0, 1, \dots, 28\}$, which is where the label "finite field" comes from.
+
+However, not every group produced by modular arithmetic is a finite field. An important axiom in the definition of a field is that in multiplication, every element except the additive identity element ($0$) has an inverse; i.e. every element $A$ has an element $A'$ for which $A \times A' = 1 \pmod{n}$. This is only true for elements which are co-prime to the modulus $n$.\cite{discrete}.
+
+Following on from this, we can see that finite fields are only produced modulo a prime $p$, such that \textit{every} element of the set is co-prime to $p$ except $0$, and therefore has an inverse.\cite{discrete}
+
+\subsection{Elliptic curves over finite fields}
+
+We can define an elliptic curve $E: y^2 = x^3 + ax + b$ over a field $F$ (written as $E/F$), where the points of the elliptic curve $(x, y)$ are all such that $x, y \in F$ and $a, b \in F$ (which follows if all coordinates are in $F$ and multiplication is closed).
+
+Elliptic curves can also be defined in this way over a finite field $\mathbb{Z}_n$, where $E: y^2 = x^2 + ax + b \pmod n$ --- see Figure \ref{fig:finite}. These curves also have a finite number of points --- the number of points, including the point at infinity, is called the \textit{order} of the curve.\cite{guide}
 
 \begin{figure}[h]
     \centering
@@ -176,12 +214,23 @@ The point at infinity is the result of two operations:
 
 \subsection{Cyclical groups \& subgroups}
 
+An interesting property of elliptic curves over finite fields is that the points of the curve will form a group that is not only abelian, but also cyclical. This means that repeated addition (point multiplication) from a generator point $G$ will produce every point on the curve once, before repeating after reaching the inverse $G'$.
+
+Importantly, this is only true if the field is a prime finite field $\mathbb{Z}_p$. Otherwise, not every point can act as a generator, and some chosen generator points may form a "subgroup" which has a period less than the order of the curve --- therefore, not every point can be produced.\cite{practical}
+
 
 \section{Public key cryptography with elliptic curves}
 
-\subsection{Point multiplication}
+\subsection{The elliptic curve discrete logarithm problem (ECDLP)}\label{ecdlp}
 
 \subsection{Elliptic Curve Diffie-Hellman (ECDH)}
+
+
+\section{ECC in the future of cryptography}
+
+\subsection{Weaknesses}
+
+\subsection{Post-quantum cryptography}
 
 
 \newpage
