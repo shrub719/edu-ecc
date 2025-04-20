@@ -18,6 +18,9 @@
   idem
 ]{jurabib}
 
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black]{hyperref}
+\urlstyle{same}
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{bbold}
@@ -29,7 +32,7 @@
 \maketitle
 
 \begin{abstract}
-Elliptic curves have a unique set of properties which make their use in cryptography appealing. The abelian group formed by the points of elliptic curves over finite fields provides a basis for the efficiently computable, one-way trapdoor function of point multiplication used in several key exchange protocols today. Despite this, they have provable weaknesses depending on the curve chosen, especially when considering the impacts of post- quantum cryptography. This paper aims to give a solid foundation of the mathematics behind elliptic curve cryptography in order to understand where it falls short.
+Elliptic curves have a unique set of properties which make their use in cryptography appealing. The abelian group formed by the points of elliptic curves over finite fields provides a basis for the efficiently computable, one-way trapdoor function of point multiplication used in several key exchange protocols today. Despite this, they have provable weaknesses depending on the curve chosen, especially when considering the impacts of post-quantum cryptography. This paper aims to give a solid foundation of the mathematics behind elliptic curve cryptography in order to understand where it falls short.
 \end{abstract}
 
 
@@ -214,7 +217,13 @@ Elliptic curves can also be defined in this way over a finite field $\mathbb{Z}_
 
 The equations derived in Section \ref{proof} hold for elliptic curves over finite fields as well, but division modulo $p$ must replace "regular" division over $\mathbb{R}$. This can be done using Euclid's extended algorithm for division\cite{discrete} or modular exponentiation.
 
-Visually, these adjustments can be explained by allowing the drawn lines to wrap around the field of points until it exactly intersects another point. % TODO: diagram?
+Visually, these adjustments can be explained by allowing the drawn lines to wrap around the field of points until it exactly intersects another point.\cite{rareskills}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/rareskills-finite.jpg}
+    \caption{Point multiplication over finite fields. Credit: RareSkills.}
+\end{figure}
 
 \subsection{Cyclical groups \& subgroups}
 
@@ -261,21 +270,20 @@ Despite being robust, efficient and currently in wide-scale usage, the dependenc
 \subsection{Weaknesses}\label{weak}
 Programs using elliptic curve cryptography, due to the nature of the algorithms used for point multiplication, are vulnerable to side-channeling attacks.\cite{nist} These are attacks which make use of physical properties such as magnetic fluctuations, current and temperature of computers to gain insight into the workings of a program. This is known to even affect virtual machines hosted on the cloud, and the ability of hypervisors to prevent this type of "spying" is limited.\cite{cloud}
 
-Furt
-
-- side-channel attack
-- this: https://blog.cryptographyengineering.com/2013/09/18/the-many-flaws-of-dualecdrbg/ \cite{blog}
-- pqc
+Furthermore, DUAL\_EC\_DRBG\cite{blog}
 
 \subsection{Post-quantum cryptography}
 
-Arguably the most notable weakness of elliptic curve cryptography is its vulnerability to quantum computers.
+Arguably the most notable weakness of elliptic curve cryptography is its vulnerability to quantum computers.\cite{that one really short paper} The ECDLP, much like the regular discrete logarithm problem, is solved in polynomial time by a modified version of Shor's algorithm, with only 1 million Tornelli gates.\cite{that one with gates. also correct this}
 
-- ecdlp, just like regular dlp, is crackable with a variant of Shor's algorithm and sub. 1 million or wtvr tor gates (cite, on kindle)
-- sndl
+- sndl - cite... something?
 - lattice-based methods
-- svp, lwe
-- "most notable" - cite that short paper
+    - svp, lwe
+
+
+\section{Accompanying program}
+
+This paper was written in conjunction with a Python program, \href{https://github.com/shrub719/edu-ecc/}{Edu-ECC}, which implements the mathematics described above in an ECDH cryptography scheme with several graphical demonstrations. The program, along with documentation, is available on GitHub: \url{https://github.com/shrub719/edu-ecc/}.
 
 
 \newpage
