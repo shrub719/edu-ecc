@@ -30,6 +30,7 @@ Clone this repo and run:
 ```
 pip install -r requirements.txt
 ```  
+> **Note:** dependencies are only required for graphing capabilities.
 
 `main.py` contains several demo functions to show the capabilities of the libraries.
 
