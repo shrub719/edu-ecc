@@ -31,8 +31,8 @@ For information on using the libraries themselves, check the [documentation](doc
 
 ## Paper
 
-The paper accompanying this program [here](./utils/Elliptic curves in modern cryptography.pdf), is my own research and interpretation of the current state of modern cryptographic standards with regards to elliptic curve cryptography.  
-It is written in LaTeX.
+The paper accompanying this program, [Elliptic curves in modern cryptography](./utils/Elliptic_curves_in_modern_cryptography.pdf), is my own research and interpretation of the current state of modern cryptographic standards with regards to elliptic curve cryptography.  
+It is written in LaTeX and available as a PDF.
 
 ---
 
