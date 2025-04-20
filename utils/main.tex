@@ -29,7 +29,7 @@
 \maketitle
 
 \begin{abstract}
-Abstract!!
+Elliptic curves have a unique set of properties which make their use in cryptography appealing. The abelian group formed by the points of elliptic curves over finite fields provides a basis for the efficiently computable, one-way trapdoor function of point multiplication used in several key exchange protocols today. Despite this, they have provable weaknesses depending on the curve chosen, especially when considering the impacts of post- quantum cryptography. This paper aims to give a solid foundation of the mathematics behind elliptic curve cryptography in order to understand where it falls short.
 \end{abstract}
 
 
@@ -68,7 +68,7 @@ A group $G$ that acts as an abelian group under an operation addition, $+$, is w
     \item \textbf{Commutativity.} $A + B = B + A$.
     \item \textbf{Associativity.} $(A + B) + C = A + (B + C)$.
     \item \textbf{Identity element.} There exists an element $I$ such that $A + I = I + A = A$.
-    \item \textbf{Inverse elements.} There exists an inverse $A'$ for every element $A$ such that $A + A' = A' + A = I$.\cite[p. 11]{guide}
+    \item \textbf{Inverse elements.} There exists an inverse $-A$ for every element $A$ such that $A + -A = -A + A = I$.\cite[p. 11]{guide}
 \end{enumerate}
 
 An example of an abelian group is the integers under addition $(\mathbb{Z}, +)$, with the identity element $0$. 
@@ -107,11 +107,11 @@ The process is similar for adding a point to itself (point doubling), where a li
     \item $A + A = C$
 \end{enumerate}
 
-Also important to note is that every point $A(x, y)$ has an inverse $A'(x, -y)$ in order to satisfy the properties of an abelian group. This property is used when defining the point at infinity (Section \ref{poi}).
+Also important to note is that every point $A(x, y)$ has an inverse $-A(x, -y)$ in order to satisfy the properties of an abelian group. This property is used when defining the point at infinity (Section \ref{poi}).
 
-\subsection{Derivation of point addition \& doubling equations}
+\subsection{Derivation of point addition \& doubling equations}\label{proof}
 
-Take two points on an elliptic curve $E$ where $A(x_1, y_1) + B(x_2, y_2) = C(x_3, y_3)$ . Let the line through $A$, $B$ and $C'(x_3, -y_3)$ be $L$ such that
+Take two points on an elliptic curve $E$ where $A(x_1, y_1) + B(x_2, y_2) = C(x_3, y_3)$ . Let the line through $A$, $B$ and $-C(x_3, -y_3)$ be $L$ such that
 \begin{gather*}
     E: y^2 = x^3 + ax + b \\
     L: y = \lambda x + m \\
@@ -131,7 +131,7 @@ We also know this equation has roots at $x_1$, $x_2$ and $x_3$, and can be writt
     x^3 - (x_1 + x_2 + x_3)x^2 + (x_1x_2 + x_1x_3 + x_2x_3)x - x_1x_2x_3 = 0
 \end{align*}
 
-Comparing coefficients of $x^2$ in the two forms of the equation, we can see that \[\lambda^2 = x_1 + x_2 + x_3\] and therefore \[x_3 = \lambda^2 - x_1 - x_2\] which gives the equation for $x_3$. To find $y_3$, we use the fact that $\lambda$ is also equal to the gradient between $C'(x_3, -y_3)$ and $B$:
+Comparing coefficients of $x^2$ in the two forms of the equation, we can see that \[\lambda^2 = x_1 + x_2 + x_3\] and therefore \[x_3 = \lambda^2 - x_1 - x_2\] which gives the equation for $x_3$. To find $y_3$, we use the fact that $\lambda$ is also equal to the gradient between $-C(x_3, -y_3)$ and $B$:
 \begin{align*}
     \lambda = \frac{-y_3-y_1}{x_3-x_1} \\
     -y_3 - y_1 = \lambda(x_3-x_1) \\
@@ -161,8 +161,8 @@ When the points of an elliptic curve are used as an abelian group $(G, +)$, we h
 
 The point at infinity is the result of two operations:
 \begin{enumerate}
-    \item Adding a point to its own inverse, so $A + A' = \infty$.
-    \item Doubling the point $A$ that is vertically tangential to the curve, where $2A = \infty$. This is because $A = A'$ for that point.
+    \item Adding a point to its own inverse, so $A + -A = \infty$.
+    \item Doubling the point $A$ that is vertically tangential to the curve, where $2A = \infty$. This is because $A = -A$ for that point.
 \end{enumerate}
 
 \begin{figure}[h]
@@ -194,7 +194,7 @@ Performing arithmetic modulo a number $n$ can be thought of as doing specially d
 
 We denote the finite field of integers modulo $n$ as $\mathbb{Z}_n$. This group has only a finite number of elements; for example, the finite field over which we do arithmetic modulo $29$ --- $\mathbb{Z}_{29}$ --- contains only the numbers $\{0, 1, \dots, 28\}$, which is where the label "finite field" comes from.
 
-However, not every group produced by modular arithmetic is a finite field. An important axiom in the definition of a field is that in multiplication, every element except the additive identity element ($0$) has an inverse; i.e. every element $A$ has an element $A'$ for which $A \times A' = 1 \pmod{n}$. This is only true for elements which are co-prime to the modulus $n$.\cite{discrete}.
+However, not every group produced by modular arithmetic is a finite field. An important axiom in the definition of a field is that in multiplication, every element except the additive identity element ($0$) has an inverse; i.e. every element $A$ has an element $-A$ for which $A \times -A = 1 \pmod{n}$. This is only true for elements which are co-prime to the modulus $n$.\cite{discrete}.
 
 Following on from this, we can see that finite fields are only produced modulo a prime $p$, such that \textit{every} element of the set is co-prime to $p$ except $0$, and therefore has an inverse.\cite{discrete}
 
@@ -212,25 +212,70 @@ Elliptic curves can also be defined in this way over a finite field $\mathbb{Z}_
     \label{fig:finite}
 \end{figure}
 
+The equations derived in Section \ref{proof} hold for elliptic curves over finite fields as well, but division modulo $p$ must replace "regular" division over $\mathbb{R}$. This can be done using Euclid's extended algorithm for division\cite{discrete} or modular exponentiation.
+
+Visually, these adjustments can be explained by allowing the drawn lines to wrap around the field of points until it exactly intersects another point. % TODO: diagram?
+
 \subsection{Cyclical groups \& subgroups}
 
-An interesting property of elliptic curves over finite fields is that the points of the curve will form a group that is not only abelian, but also cyclical. This means that repeated addition (point multiplication) from a generator point $G$ will produce every point on the curve once, before repeating after reaching the inverse $G'$.
+An interesting property of elliptic curves over finite fields is that the points of the curve will form a group that is not only abelian, but also cyclical. This means that repeated addition (point multiplication) from a generator point $G$ will produce every point on the curve once, before repeating after reaching the inverse $-G$.
 
-Importantly, this is only true if the field is a prime finite field $\mathbb{Z}_p$. Otherwise, not every point can act as a generator, and some chosen generator points may form a "subgroup" which has a period less than the order of the curve --- therefore, not every point can be produced.\cite{practical}
+Importantly, this is only true if the field is a prime finite field $\mathbb{Z}_p$. Otherwise, not every point can act as a generator, and some chosen generator points may form a "subgroup" which has a period less than the order of the curve --- therefore, not every point can be produced.\cite{practical} This is one of the reasons why the curves used in elliptic curve cryptography must be carefully chosen (see Section \ref{weak}).
 
 
 \section{Public key cryptography with elliptic curves}
 
 \subsection{The elliptic curve discrete logarithm problem (ECDLP)}\label{ecdlp}
 
+One key property of elliptic curve point multiplication is that for certain elliptic curves, attempting to find $k$ where $kG = A$ given $G$ and $A$ is computationally difficult --- that is, it is conjectured to be hard to reverse point multiplication.\cite{practical}
+
+This property is called the \textit{elliptic curve discrete logarithm problem} due to its similarity to the discrete logarithm problem used in cryptographic protocols like Diffie-Hellman key exchange.\cite{discrete} The elliptic curve variant is preferable for several reasons, most notably increased speed and efficiency,\cite{nist2} as well as providing more security for lower key sizes.\cite{nist}.
+
+Several algorithms exist that speed up the computation of point multiplication, most commonly the sliding window method which decomposes large scalar multiples into several easier-to-calculate operations. However, current algorithms to reverse the calculation are not much better than the naive method (trial-and-error)\cite{guide} and have been that way for a long time. 
+
+This gives elliptic curve cryptography a great profile to be considered for use as a trapdoor function in cryptography.\cite{nist} We will cover one protocol as an example of the use of elliptic curves in cryptography, the elliptic curve variant of Diffie-Hellman key exchange.
+
 \subsection{Elliptic Curve Diffie-Hellman (ECDH)}
+
+One of the most common uses of elliptic curves is in a modified Diffie-Hellman key exchange protocol, which is originally based on number theory's discrete logarithm problem. The set up is as follows:
+
+Two clients, Alice and Bob, choose a generator points $G$ on an elliptic curve $E/\mathbb{Z}_p$ which act as their public keys. Both clients also choose their own private keys $p$ and $q$ respectively, which are random integers between $0$ and the order of the elliptic curve.
+
+Alice calculates $p \times G$ to produce the point $A$, and sends it to Bob. Due to the elliptic curve discrete logarithm problem, any eavesdroppers cannot calculate  $p$ given $G$ and $A$. Bob similarly calculates $q \times G$ to produce $B$.
+
+Alice then calculates $p \times B$ and Bob calculates $q \times A$ to produce the same point $P$. This is because 
+\begin{align*}
+    (G \times p) \times q = (G \times q) \times p \\
+    = (G + G + \dots + G) + (G + G + \dots + G) \\
+    = G \times (p + q)
+\end{align*}
+which follows from the commutative property of elliptic curve point addition.
+
+This way, two clients can communicate over an unsecured network to derive a common secret key using the ECDLP.\cite{practical}
 
 
 \section{ECC in the future of cryptography}
 
-\subsection{Weaknesses}
+Despite being robust, efficient and currently in wide-scale usage, the dependence of elliptic curves in cryptography schemes is not future-proof.
+
+\subsection{Weaknesses}\label{weak}
+Programs using elliptic curve cryptography, due to the nature of the algorithms used for point multiplication, are vulnerable to side-channeling attacks.\cite{nist} These are attacks which make use of physical properties such as magnetic fluctuations, current and temperature of computers to gain insight into the workings of a program. This is known to even affect virtual machines hosted on the cloud, and the ability of hypervisors to prevent this type of "spying" is limited.\cite{cloud}
+
+Furt
+
+- side-channel attack
+- this: https://blog.cryptographyengineering.com/2013/09/18/the-many-flaws-of-dualecdrbg/ \cite{blog}
+- pqc
 
 \subsection{Post-quantum cryptography}
+
+Arguably the most notable weakness of elliptic curve cryptography is its vulnerability to quantum computers.
+
+- ecdlp, just like regular dlp, is crackable with a variant of Shor's algorithm and sub. 1 million or wtvr tor gates (cite, on kindle)
+- sndl
+- lattice-based methods
+- svp, lwe
+- "most notable" - cite that short paper
 
 
 \newpage
