@@ -1,6 +1,6 @@
-# Edu-ECC [WIP]
+# Edu-ECC
 
-A simplified visual demonstration of several mathematical concepts in cryptography. Currently a work in progress. Part of my Independent Research Project.
+A simplified visual demonstration and implementation of elliptic curve cryptography. Part of my Independent Research Project.
 
 > **Note:** this program is **NOT** cryptographically secure or fit for use in production. It is purely for educational purposes and does not guarantee strong elliptic curves or random number generation.
 
@@ -16,20 +16,12 @@ This project is composed of two parts:
 
 [Edu-ECC](src/main.py) is a Python program that implements elliptic curve arithmetic over finite fields from scratch, and uses this for several EC-based cryptography schemes.
 
-### Goals
-The program should (in order of priority):
-- ~~Draw elliptic curves and/or their discrete finite field representations using matplotlib~~
-- Animate point scalar multiplication using tangents
-- ~~Implement EC calculation and arithmetic operations (i.e. stop using `tinyec`)~~
-- ~~Implement ECDH-based secret key derivation~~
-- **Implement EC hybrid assymetric key encryption** 
-- Allow for the tweaking of curve parameters to demonstrate the importance of choosing cryptographically secure curves **[?]**
-
 ### Usage
 Clone this repo and run:
 ```
 pip install -r requirements.txt
 ```  
+> **Note:** dependencies are only required for graphing capabilities.
 
 `main.py` contains several demo functions to show the capabilities of the libraries.
 
@@ -39,26 +31,8 @@ For information on using the libraries themselves, check the [documentation](doc
 
 ## Paper
 
-The paper accompanying this program [here](./utils/main.tex), is my own research and interpretation of the current state of modern cryptographic standards including elliptic curve and some lattice-based cryptography.  
-It is written in LaTeX as an article with Oxford citation style.
-
-### Goals
-The paper should cover (in chronological <!-- chronological?? --> order):
-- ECC
-    - What they are and useful/special properties
-    - Finite fields, restrictions to prime finite fields
-    - Binary fields **[?]**
-    - Operations within the field of points (addition, scalar multiplication, point at infinity)
-    - ECC-based key derivation
-- Lattice-based cryptography
-    - SVP
-    - LWE
-    - Variants such as MLWE and RLWE
-    - NIST PQC competition
-- Future-proofing standards
-    - QRNG for key generation
-    - Shor's algorithm
-    - Feasibilty of large-scale quantum computers, error correction
+The paper accompanying this program, [Elliptic curves in modern cryptography](./utils/Elliptic_curves_in_modern_cryptography.pdf), is my own research and interpretation of the current state of modern cryptographic standards with regards to elliptic curve cryptography.  
+It is written in LaTeX as an article with Oxford citation style and available as a PDF.
 
 ---
 

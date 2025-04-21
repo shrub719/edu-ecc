@@ -9,7 +9,7 @@ EC contains classes related to elliptic curves over finite fields.
 
 EC really only contains one class you'll need to worry about: `Curve`.  
 
-`Curve` represents an elliptic curve over a finite prime field in supersingular Weierstrauss form, <!-- FIX: is this right? --> i.e. in the form $y^2 = x^3 + ax + b \pmod p$.
+`Curve` represents an elliptic curve over a finite prime field in short Weierstrass form, <!-- FIX: is this right? --> i.e. in the form $y^2 = x^3 + ax + b \pmod p$.
 
 When initialising a `Curve` pass in $a$, $b$ and $p$. For example,
 ```py
