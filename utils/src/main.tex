@@ -32,13 +32,13 @@
 \maketitle
 
 \begin{abstract}
-Elliptic curves have a unique set of properties which make their use in cryptography appealing. The abelian group formed by the points of elliptic curves over finite fields provides a basis for the efficiently computable, one-way trapdoor function of point multiplication used in several key exchange protocols today. Despite this, they have provable weaknesses depending on the curve chosen, especially when considering the impacts of post-quantum cryptography. This paper aims to give a solid foundation of the mathematics behind elliptic curve cryptography in order to understand where it falls short.
+Elliptic curves have a unique set of properties which make their use in cryptography appealing. The abelian group formed by the points of elliptic curves over finite fields provides a basis for the efficiently computable, one-way trapdoor function of point multiplication used in several cryptographic protocols today, ranging from modified Diffie-Hellman key exchange to digital signature algorithms. Despite this, they have provable weaknesses depending on the curve chosen, especially when considering the impacts of post-quantum cryptography. This paper aims to give a solid foundation of the mathematics behind elliptic curve cryptography in order to understand where it falls short.
 \end{abstract}
 
 
 \section{Introduction to elliptic curves}\label{intro}
 
-Elliptic curves have a long and beautifully rich history in mathematics. They illustrate perfectly how interconnected mathematics is; elliptic curves have uses ranging across disciplines of mathematics, such as their use in the proof of Fermat's Last Theorem, or the Taniyama–Shimura–Weil conjecture. An interesting application of elliptic curves that is very relevant today is as a trapdoor function in cryptography, but in order to explain their uses it would be useful to cover what they are.
+Elliptic curves have a long and beautifully rich history in mathematics. They illustrate perfectly how interconnected mathematics is; elliptic curves have uses ranging across disciplines of mathematics, such as their use in the proof of Fermat's Last Theorem, or the Taniyama–-Shimura–-Weil conjecture. An interesting application of elliptic curves that is very relevant today is as a trapdoor function in cryptography, but in order to explain their uses it would be useful to cover what they are.
 
 Formally, an elliptic curve is any implicit function where one variable has a degree of 2 and the other has a degree of 3. The kind we are interested in is elliptic curves in \textbf{short Weierstrass form}. This means they are in the form $y^2 = x^3 + ax^2 + b$. Examples of elliptic curves in short Weierstrass form can be seen in Figure \ref{fig:curves}.\cite{guide}
 
@@ -231,6 +231,17 @@ An interesting property of elliptic curves over finite fields is that the points
 
 Importantly, this is only true if the field is a prime finite field $\mathbb{Z}_p$. Otherwise, not every point can act as a generator, and some chosen generator points may form a "subgroup" which has a period less than the order of the curve --- therefore, not every point can be produced.\cite{practical} This is one of the reasons why the curves used in elliptic curve cryptography must be carefully chosen (see Section \ref{weak}).
 
+However, in practise, the moduli chosen for elliptic curves are very large in order to keep the order as large as possible. The parameters for these curves are standardised and given names in order to create a bank of research-proven "strong" curves. One of the curves used for cryptocurrency, named \texttt{secp256k1},\cite{sec} has the equation $y^2 = x^3 + 7 \pmod p$ where $m = 2^{256} - 2^{32} - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1$, with the generator $G(\texttt{0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798}, \texttt{0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8}$.
+
+It's clear that large numbers are integral to the security of an elliptic curve. A small part of a subgroup of \texttt{secp256k1} can be seen in Figure \ref{fig:huge}, which took an Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i9-7900X CPU @ 3.30GHz approximately 120 seconds to calculate.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/big.png}
+    \caption{The first 1000 points of the subgroup produced by $G$ on \texttt{secp256k1}.}
+    \label{fig:huge}
+\end{figure}
+
 
 \section{Public key cryptography with elliptic curves}
 
@@ -268,20 +279,24 @@ This way, two clients can communicate over an unsecured network to derive a comm
 Despite being robust, efficient and currently in wide-scale usage, the dependence of elliptic curves in cryptography schemes is not future-proof.
 
 \subsection{Weaknesses}\label{weak}
-Programs using elliptic curve cryptography, due to the nature of the algorithms used for point multiplication, are vulnerable to side-channeling attacks.\cite{nist} These are attacks which make use of physical properties such as magnetic fluctuations, current and temperature of computers to gain insight into the workings of a program. This is known to even affect virtual machines hosted on the cloud, and the ability of hypervisors to prevent this type of "spying" is limited.\cite{cloud}
+Programs using elliptic curve cryptography, due to the nature of the algorithms used for point multiplication, are vulnerable to side-channelling attacks.\cite{nist} These are attacks which make use of physical properties such as magnetic fluctuations, current and temperature of computers to gain insight into the workings of a program. This is known to even affect virtual machines hosted on the cloud, and the ability of hypervisors to prevent this type of "spying" is limited.\cite{cloud}
 
-Furthermore, DUAL\_EC\_DRBG\cite{blog}
+The choice of the curve also potentially opens up any algorithms to several attacks. One of the most dangerous is caused by an elliptic curve with a non-prime modulus and a poorly chosen generator point $G$; this could inadvertently form a very small cyclical group vulnerable to trial-and-error attack,\cite{practical}, and such that parameters should be picked from carefully maintained standardised bank of elliptic curves.\cite{sec}
+
+Furthermore, elliptic curve schemes are vulnerable to backdoors; \texttt{DUAL\_EC\_DRBG}, a pseudo-random number generator released by NIST together with the NSA, was found to have a specially chosen set of parameters that gave the NSA a backdoor to the algorithm, theoretically enabling them to predict any number the generator would produce.\cite{blog} This put every program using \texttt{DUAL\_EC\_DRBG} at risk; not only was the initial curve ambiguously chosen with no formal proof of security, but now anyone who discovered the backdoor could completely crack the random number generator.
 
 \subsection{Post-quantum cryptography}
 
-Arguably the most notable weakness of elliptic curve cryptography is its vulnerability to quantum computers.\cite{that one really short paper} The ECDLP, much like the regular discrete logarithm problem, is solved in polynomial time by a modified version of Shor's algorithm, with only 1 million Tornelli gates.\cite{that one with gates. also correct this}
+Arguably the most notable weakness of elliptic curve cryptography is its vulnerability to quantum computers. The ECDLP, much like the regular discrete logarithm problem, is solved in polynomial time by a modified version of Shor's algorithm, with only 1 million Toffoli gates.\cite{gates} 
 
-- sndl - cite... something?
-- lattice-based methods
-    - svp, lwe
+This is of particular concern even now because of Store Now, Decrypt Later (SNDL) methodology. Attackers today are constantly intercepting and storing data currently being sent securely over the internet using elliptic curve encryption schemes, in the hope that some day in the future they will have access the quantum computers which can break the encryption used on public internet traffic.\cite{jstor} This is worrying because some vulnerable data such as confidential government information or personal payment details will still be relevant in the future, when these attackers are able to decrypt data that was previously unreadable. As a result, many bodies are pushing to move away from elliptic curve cryptography in favour of more quantum-safe solutions,\cite{aes} like lattice-based cryptography.\cite{nist}
 
 
-\section{Accompanying program}
+\section{Conclusion}
+
+Elliptic curves brought a novel solution to the cryptography scene; with lower key sizes, efficient algorithms, easy adoption, and perceived hardness, ECC was quickly adopted and is still in use today. The foundation of group theory with the points of a curve over a finite field form a strong mathematical basis for cryptography schemes like ECDH, which made ECC an appealing and secure prospect. However, it is far from foolproof --- as evidenced by backdoors and poorly chosen parameters which can jeopardise security --- and is especially vulnerable as the era of post-quantum cryptography draws near.
+
+\subsection{Accompanying program}
 
 This paper was written in conjunction with a Python program, \href{https://github.com/shrub719/edu-ecc/}{Edu-ECC}, which implements the mathematics described above in an ECDH cryptography scheme with several graphical demonstrations. The program, along with documentation, is available on GitHub: \url{https://github.com/shrub719/edu-ecc/}.
 
