@@ -31,8 +31,14 @@ For information on using the libraries themselves, check the [documentation](doc
 
 ## Paper
 
-The paper accompanying this program, [Elliptic curves in modern cryptography](./utils/Elliptic_curves_in_modern_cryptography.pdf), is my own research and interpretation of the current state of modern cryptographic standards with regards to elliptic curve cryptography.  
+The paper accompanying this program, [Elliptic curves in modern cryptography](./paper/Elliptic_curves_in_modern_cryptography.pdf), is my own research and interpretation of the current state of modern cryptographic standards with regards to elliptic curve cryptography.  
 It is written in LaTeX as an article with Oxford citation style and available as a PDF.
+
+
+## License
+
+Edu-ECC code is licensed under the [MIT license](./LICENSE).  
+The paper is licensed under [CC BY-NC-ND](./paper/LICENSE).
 
 ---
 
